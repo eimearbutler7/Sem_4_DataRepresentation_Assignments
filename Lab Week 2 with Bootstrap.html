@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<title>carviewer</title>
+<link rel="stylesheet"
+href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
+crossorigin="anonymous">
+
+</head>
+
+<body>
+<div>
+<h1> Cars </h1>
+	
+<button type="button">Create</button>
+</div>
+<br>
+
+<div>
+<h2> All Cars </h2>
+
+<table class="table" border="1" align="left" cellpadding="2">
+<!-- table row, table data -->
+	<thead class="thead-dark">
+	<tr align="center">
+		<td><b>reg</b></td>
+		<td><b>make</b></td>
+		<td><b>model</b></td>
+		<td><b>price</b></td>
+		<td><b>Update</b></td>
+		<td><b>Delete</b></td>
+	</tr>
+	</thead>
+	
+	<tbody>
+	<tr scope="row">
+		<td>191 MO 123</td>
+		<td>Ford</td>
+		<td>Modeo</td>
+		<td>25,000</td>
+		<td><button type="button">update</button></td>
+		<td><button type="button">delete</button></td>	
+	</tr>
+	
+	<tr scope="row">
+		<td>12 D 123</td>
+		<td>Fiat</td>
+		<td>Punto</td>
+		<td>4,000</td>
+		<td><button type="button">update</button></td>
+		<td><button type="button">delete</button></td>	
+	</tr>
+	<tr scope="row">
+		<td>08 G 123</td>
+		<td>Nissan</td>
+		<td>Almera</td>
+		<td>500</td>
+		<td><button type="button">update</button></td>
+		<td><button type="button">delete</button></td>	
+	</tr>
+	</tbody>
+</table>
+</div>
+
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+
+<div>
+<h2><span>Create a</span> <span>Update this</span> Car</h2>
+<form class="form-group">
+	Reg
+		<input type="text" name="reg"/>
+	<br>
+	
+	make
+	<select name="make">
+	<option selected="selected" value="ford">Ford</option>
+	<option value="fiat">Fiat</option>
+	<option value="nissan">Nissan</option>
+	</select>
+	<br>
+	model
+		<input type="text" name="model"/>
+	<br>
+	
+	price
+		<input type="number" name="price"/>
+	<br>
+
+<span><button type="button">Create</button></span><span><button type="button">Update</button></span>
+</form>
+</div>
+</body>
+</html>
