@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<title>Week 3 Assignments</title>
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">	
+
+<h4 style="background-color:yellow">NOTE: Document contains relevant HTML/Javascript that is not available when viewed through a webbrowser. 
+It is recommented to review in conjunction with the raw coding visible using developers more in Google Chrome. </h4> <br/>
+<br/>
+<br/>
+</head>
+
+<body>
+
+<h5>1. Write some html that has a hidden element. (see raw code)</h5>
+<div style="display:none">	
+<h1>This is a Header but you cannot see it</h1>
+</div><br/>
+<br/>
+
+<h5>2. Write some JavaScript that outputs “Hello World” to the console. (see raw code)</h5>
+<script>
+console.log("Hello World")
+</script>
+<br/>
+<br/>
+<h5>3. Make a webpage with an input and a button, when the user clicks the button then
+the contents of the input will display in another div.</h5>
+<button onclick="output()">Output</button>
+<div id="appear"> </div>
+<script>
+function output(){
+document.getElementById("appear").innerHTML="This is the input text appearing in a separate div";
+}
+</script>
+<br/>
+<br/>
+<h5>4. Create a book object as a variable with title, author and ISBN, and display it in the
+console.(see raw code)</h5>
+<br/>
+<br/>
+<script>
+var book = {title: "Book Example 1", author: "A.N.Other" , ISBN: "3321"};
+console.log(book)
+</script>
+<h5>5. Make a webpage that has two divs, only one should be visible at a time, each div
+will have a button that will make the other div visible (and hide itself).</h5>
+<br/>
+<br/>
+
+<div id=div1 style="background-color:lightblue">
+<button style="background-color:lightblue" onclick="switch1()">switch to div 2</button>
+</div>
+<br/>
+<br/>
+<div id=div2 style="background-color: red" style="display: none">
+<button style="background-color: red" onclick="switch2()">switch to div 1</button>
+</div>
+<br/>
+<br/>
+<script>
+document.getElementById("div2").style.display = "none";
+
+function switch1(){
+document.getElementById("div2").style.display = 'inline'
+document.getElementById("div1").style.display = 'none'
+}
+
+function switch2(){
+document.getElementById("div2").style.display = 'none'
+document.getElementById("div1").style.display = 'inline'
+}
+</script>
+
+<h5>6. Make a web page that has a text box, when the content of the text area changes the
+page will display whether the value entered is greater or less than 10, or equal to 10.</h5>
+<br/>
+Input a number and press "Test"	
+<form id="oneToTwentyForm">
+<input type="text"  name="oneToTwenty"/>
+</form>
+<button onclick="test()">Test</button>
+<div id="appear2"></div>
+<br/>
+<script>
+function test(){
+var value = document.getElementById('oneToTwentyForm').querySelector('input[name="oneToTwenty"]').value
+if (value<10) {document.getElementById("appear2").innerHTML="This value is under 10";}
+else if (value>10) {document.getElementById("appear2").innerHTML="This value is over 10";}
+else if (value=10) {document.getElementById("appear2").innerHTML="This value is 10";}
+}
+</script>
+<br/>
+<br/>
+
+
+<h5>7. Make a web page that outputs 1 to 10 (or N) and Make a web page that outputs all
+the values of an array.</h5>
+<div id="appear3"></div>
+<button onclick="arrayOutput()">Show Array</button>
+
+<script>
+var array1  = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+
+function arrayOutput(){
+document.getElementById("appear3").innerText=array1;}
+</script>
+
+<br/>
+<br/>
+
+<h5>8. Create a webpage with multiple inputs and a button, when the user hits the button
+read all the inputs, store the values into a class and output the class to the console.</h5>
+<form class="info" id="IDForm">
+first name<input type="text"  name="firstName"/><br/>
+last name <input type="text"  name="lastName"/><br/>
+DOB <input type="text"  name="DOB"/><br/>
+</form>
+<button onclick="submit()">Submit</button>
+<div id="appear4"></div>
+<br/>
+<script>
+
+function submit(){
+var emptyS = {}
+emptyS.firstName = document.getElementById("IDForm").querySelector('input[name="firstName"]').value
+emptyS.lastName = document.getElementById("IDForm").querySelector('input[name="lastName"]').value
+emptyS.DOB =  document.getElementById("IDForm").querySelector('input[name="DOB"]').value
+document.getElementById("appear4").innerText=JSON.stringify(emptyS);
+}
+
+</script>
+<br/>
+<br/>
+<h5>9. Write the code so that when the user clicks on the button in a row, the contents of
+the cells in that row are stored in an object and outputted to the console.</h5>
+
+<table id="Table" border="1" align="left" cellpadding="2">
+	<tr align="center">
+		<td><b>reg</b></td>
+		<td><b>make</b></td>
+		<td><b>model</b></td>
+		<td><b>price</b></td>
+		<td><b>Export</b></td>
+	</tr>
+	
+	<tr id="191 MO 123">
+		<td>191 MO 123</td>
+		<td>Ford</td>
+		<td>Modeo</td>
+		<td>25,000</td>
+		<td><button type="button" onclick="exportData(1)">export</button></td>
+	</tr>
+	
+	<tr id="12 D 123">
+		<td>12 D 123</td>
+		<td>Fiat</td>
+		<td>Punto</td>
+		<td>4,000</td>
+		<td><button type="button" onclick="exportData(2)">export</button></td>
+	</tr>
+	
+	<tr id="08 G 123">
+		<td>08 G 123</td>
+		<td>Nissan</td>
+		<td>Almera</td>
+		<td>500</td>
+		<td><button type="button" onclick="exportData(3)">export</button></td>
+	</tr>
+</table>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<div id="appear5" style="background-color:lightblue"></div>
+<script>
+	function exportData(row){
+	var tableElement = document.getElementById('Table').rows[row].innerHTML
+		document.getElementById("appear5").innerHTML = tableElement
+		}
+		
+   
+</script>
+
+<h5>10. Create a button that when it is clicked adds a row to the table (above) with data.</h5>
+<br/>
+
+
+
+<table id="Table2" border="1" align="left" cellpadding="2">
+	<thead>
+	<tr align="center">
+		<td><b>reg</b></td>
+		<td><b>make</b></td>
+		<td><b>model</b></td>
+		<td><b>price</b></td>
+	</tr>
+	</thead>
+	
+	<tbody>
+	<tr id="191 MO 123">
+		<td>191 MO 123</td>
+		<td>Ford</td>
+		<td>Modeo</td>
+		<td>25,000</td>
+	</tr>
+	
+	<tr id="12 D 123">
+		<td>12 D 123</td>
+		<td>Fiat</td>
+		<td>Punto</td>
+		<td>4,000</td>
+	</tr>
+	<tr id="08 G 123">
+		<td>08 G 123</td>
+		<td>Nissan</td>
+		<td>Almera</td>
+		<td>500</td>
+	</tr>
+	</tbody>
+</table>
+</div>
+
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<div id='createForm'>
+	
+<h2>Create a Car</h2>
+
+	Reg	<input type="text" name="reg"/><br/>
+	make
+	<select name="make">
+	<option value="ford">Ford</option>
+	<option value="fiat">Fiat</option>
+	<option value="nissan">Nissan</option>
+	</select><br/>
+	model <input type="text" name="model"/><br/>
+	
+	price<input type="number" name="price"/><br/>
+
+	<span><button id="doCreateButton" onclick="doCreate()">Create</button></span>
+
+</div>
+
+<script>
+
+
+    function showUpdate(buttonElement){
+        document.getElementById('showCreateButton').style.display="none"
+        document.getElementById('carTable').style.display="none"
+        document.getElementById('createUpdateForm').style.display="block"
+        document.getElementById('createLabel').style.display="none"
+        document.getElementById('updateLabel').style.display="inline"
+        document.getElementById('doCreateButton').style.display="none"
+        var rowElement = buttonElement.parentNode.parentNode
+        // these is a way of finding the closest <tr> which would safer, closest()
+        
+        var car = getCarFromRow(rowElement)
+        populateFormWithCar(car)
+    }
+    function doCreate(){
+        var form = document.getElementById('createForm')
+        var car = {}
+        car.reg = form.querySelector('input[name="reg"]').value
+        car.make = form.querySelector('select[name="make"]').value
+        car.model = form.querySelector('input[name="model"]').value
+        car.price = form.querySelector('input[name="price"]').value
+        console.log(JSON.stringify(car))
+        addCarToTable(car)
+    }
+    function addCarToTable(car){
+        var tableElement = document.getElementById('Table2')
+        var rowElement = tableElement.insertRow(-1)
+        rowElement.setAttribute('id',car.reg)
+        var cell1 = rowElement.insertCell(0);
+        cell1.innerHTML = car.reg
+        var cell2 = rowElement.insertCell(1);
+        cell2.innerHTML = car.make
+        var cell3 = rowElement.insertCell(2);
+        cell3.innerHTML = car.model
+        var cell4 = rowElement.insertCell(3);
+        cell4.innerHTML = car.price
+    }
+
+
+</script>
+
+
+
+</html>
