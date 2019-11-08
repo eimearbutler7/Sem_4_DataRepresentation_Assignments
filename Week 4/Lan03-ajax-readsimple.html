@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<title>read a simple json</title>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+</head>
+
+<body>
+<button onclick="readJSON()">Show First Result</button>
+<br/>
+<br/>
+<div>USD Rate:</div>
+<div id="output"></div>
+<br/>
+<div>GBP Rate:</div>
+<div id="output2"></div>
+<br/>
+<div>------------------------</div>
+<button onclick="readCrypto()">Show Second Result</button>
+<br/>
+<div>USD Rate from second source:</div>
+<div id="output3"></div>
+</body>
+
+
+<script>
+function readJSON(){
+	$.ajax({
+		"url": "https://api.coindesk.com/v1/bpi/currentprice.json ",
+		"method":"GET",
+		"data":"",
+		"dataType": "JSON",
+		"success":function(result){
+			console.log(result);
+			document.getElementById("output").innerText = result.bpi.USD.rate
+			document.getElementById("output2").innerText = result.bpi.GBP.rate;
+		},
+		"error":function(xhr,status,error){
+			console.log("error: "+status+" msg:"+error);
+		}
+	});
+	 }
+
+function readCrypto(){
+	$.ajax({
+		"url": "https://min-api.cryptocompare.com/data/price?fsym=ETH&tsyms=BTC,USD,EUR",
+		"method":"GET",
+		"data":"",
+		"dataType": "JSON",
+		"success":function(result2){
+			console.log(result2);
+			document.getElementById("output3").innerText = result2.USD
+		},
+		"error":function(xhr,status,error){
+			console.log("error: "+status+" msg:"+error);
+		}
+	});
+	 }
+
+
+</script>
+
+</html>

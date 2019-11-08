@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<title>lAB02-JSONArray</title>
+</head>
+
+<body>
+<div id="JSON">
+{"employees": [{"firstName": "John", "lastName": "Doe"},{
+"firstName": "Anna","lastName": "Smith"},{"firstName": "Peter",
+"lastName": "Jones"}]}
+</div>
+<div>
+<button id="showButton" onclick="show()" type="button">Create</button>
+</div>
+<br/>
+<div id="divObject1">
+</div>
+
+<script>
+
+	function show(){
+		var obj = JSON.parse('{"employees": [{"firstName": "John", "lastName": "Doe"},{ "firstName": "Anna","lastName": "Smith"},{"firstName": "Peter","lastName": "Jones"}]}')
+		for (employee of obj.employees){
+		console.log(employee.firstName)}
+	}
+</script
+
+</body>
+</html>
