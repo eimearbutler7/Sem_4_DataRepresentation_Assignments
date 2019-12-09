@@ -4,7 +4,7 @@ This repository contains my work relating to the Data Representation module, Sep
 
 The following exercises/labs are stored here:
 
-Exercise 1.1.xml	<br/>
+Exercise 1.1.xml (week 1)	<br/>
 Lab Week 2.HTML	  <br/>
 Lab Week 2 with Bootstrap.html  <br/>	
 Lab Week 3.HTML    <br/>
