@@ -1,0 +1,109 @@
+<html>
+    <head>
+        <title> view Dublin Busses</title>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+       
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    </head>
+    <body>
+        <h1>Dublin Busses</h1>
+        <div> <button id="showCreateButton" onclick="doCreate()">Create</button></div>
+        <div> <button id="showCreateButton2" onclick="getAllAjax()">Get Info</button></div>
+        
+        <div>
+            <table class="table" id="busTable">
+                <tr>
+                        <th>StopID</th>
+                        <th>Name</th>
+                        <th>Routes</th>
+                        <th>Update</th>
+                        <th>Delete</th>
+                </tr>
+                
+            </table>
+        </div>
+        <div id='createUpdateForm' style="display: none">
+                <h2><span id="createLabel">Create a</span> <span id="updateLabel">update</span> Bus</h2>
+                StopID <select name="StopID">
+                        <option value="9982">9982</option>
+                        <option value="9983">9983</option>
+                        <option value="9984">9984</option>
+                        <option value="9985">9985</option>
+                        <option value="9986">9986</option>
+                </select> <br/>
+                Name <input type="text" name="Name"/> <br/>
+                Routes <input type="text" name="Routes"/> <br/>
+                <span><button id="doCreateButton" onclick="doCreate()">Create</button></span>
+                <span><button id="doUpdateButton" onclick="doUpdate()">Update</button></span>
+        </div>
+    </body>
+    <script>
+    function addBusToTable(bus){
+        var tableElement = document.getElementById('busTable')
+        var rowElement = tableElement.insertRow(-1)
+        rowElement.setAttribute('id',bus.StopID)
+        var cell1 = rowElement.insertCell(0);
+        cell1.innerHTML = bus.StopID
+        var cell2 = rowElement.insertCell(1);
+        cell2.innerHTML = bus.Name
+        var cell3 = rowElement.insertCell(2);
+        cell3.innerHTML = bus.Routes
+        var cell5 = rowElement.insertCell(3);
+        cell5.innerHTML = '<button onclick="showUpdate(this)">Update</button>'
+        var cell6 = rowElement.insertCell(4);
+        cell6.innerHTML = '<button onclick=doDelete(this)>delete</button>'
+    }
+
+    function doCreate(){
+        var form = document.getElementById('createUpdateForm')
+        var bus = {}
+        bus.StopID = form.querySelector('input[name="StopID"]').value
+        bus.Name = form.querySelector('select[name="Name"]').value
+        bus.Routes = form.querySelector('input[name="Routes"]').value
+        console.log(JSON.stringify(bus))
+        createBusAjax(bus)
+        addBusToTable(bus)
+        clearForm()
+        
+        showViewAll()
+    }
+    function getAllAjax(){
+        $.ajax({
+            "url": "http://127.0.0.1:5000/bus",
+            "method":"GET",
+            "data":"",
+            "dataType": "JSON",
+            "success":function(result){
+                
+                for (bus of result.bus){
+                    
+                    for (i in bus){
+                        console.log(bus[i]['StopID'],bus[i]['Name'],bus[i]['Routes'])
+                    
+                        
+                
+            }}},
+            "error":function(xhr,status,error){
+                console.log("error: "+status+" msg:"+error);
+            }
+        });
+    }
+    function liveRefresh(){
+        $.ajax({
+            "url": "https://data.smartdublin.ie/cgi-bin/rtpi/realtimebusinformation?stopid=235&format=json",
+            "method":"GET",
+            "data":"",
+            "dataType": "JSON",
+            "success":function(result){
+                console.log(result.live[0]);
+            //          for (i of result.live){
+            //              console.log(result.live[i]);
+            //  }
+            },
+            });
+
+    }
+    getAllAjax()
+    </script>
+    </html>
+    

@@ -1,0 +1,451 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8"> 				
+	<title>Java</title>
+	<link rel="icon" href="favicon.ico"> 			<!-- I created a small icon to appear in the page tab -->
+	<script src="https://d3js.org/d3.v5.min.js"></script> <!-- import d3 functionality to allow me to use this within the javascript section -->
+
+	<h1>Qual-Stat</h1>
+	<h2>"You are aiming to climb high but remember, <br>you can't improve that which you do not measure"</h2>
+
+<style>
+* {font-family:Calibri, Arial, Times new roman}    /* text style set for the whole page */
+body {background-image: url("images/forest.jpg");   /* background image set */
+		background-repeat:repeat-y;
+		background-size: 1500px;
+		}
+h1 {margin: 30px; font-family:Arial; font-weight:bold; color:rgb(249, 15, 46); text-shadow: -1px 0 black, 0 2px black, 1px 0 black, 0 -1px black ;font-size: 100px; text-align:Center;}
+h2 {margin: 30px; font-family:Arial; font-weight:bold; color:white; background-color: rgb(249, 15, 46); padding:5px; font-size: 15px; text-align:Center;}
+.intro {
+	margin: 30px;
+	color: rgba(16, 16, 16);
+	background-color: rgba(200, 200, 200, 0.8); 
+	padding: 10px;
+	font-weight:bold;
+	text-align:left;
+	}
+	
+#circlediv1 {
+	float:left;			/* float left is introduced here to put div for requesting user input BESIDE output of circles */
+	height: 150px;
+	width: 400px;
+	margin-left:30px;
+	color: rgba(16, 16, 16);
+	background-color: rgba(200, 200, 200, 0.8);
+	padding: 20px;
+	}
+#circlediv2 {
+	float:left; 		/* circles output is also floated up beside circlediv1 */
+	height: 170px;
+	width: 500px;
+	margin-left: 30px;
+	color: rgba(16, 16, 16);
+	background-color: rgba(46, 73, 37, 0.95);
+	border-style: solid;
+	padding: 0px;
+	}
+#bardiv {
+	clear:left; 		/* clear left means this div starts on a new line (i.e. nothing is floating on its left */
+	float:left;			/* it is also then floated like see with the circles divs */
+	margin-top:50px;
+	margin-left:30px;
+	height: 250px;
+	width: 400px;
+	background-color: rgba(200, 200, 200, 0.8);
+	padding: 20px;
+	}
+#myDiv {
+	float:left;			/* 2 output divs are now also floated alongside the user input div, 1 here... */
+	margin-bottom:10px;
+	height: 350px;
+	width: 350px;
+	color: rgba(16, 16, 16);
+	padding: 0px;
+	}
+#aButton{color:black; background-color:rgb(0, 220, 250);}
+#myDiv2 {
+	float:left;			/* ...and another here */
+	margin-bottom:10px;
+	height: 350px;
+	width: 350px;
+	color: rgba(16, 16, 16);
+	padding: 0px;
+	}
+#comments {
+	clear: left;		/* comments section again clears left meaning it is on its own line */
+	height: 100px;
+	margin: 30px;
+	color: rgba(16, 16, 16);
+	background-color: rgb(249, 15, 46);
+	font-weight:bold;
+	text-align: center;
+	font-size: 20px;
+	border-style: solid;
+	padding: 0px;
+	}
+.footer {
+	position: fixed;	/* footer remains fixed throughout */
+	left: 0;
+	bottom: 0;
+	height: 50px;
+	width: 100%;
+    background-color: grey;
+	color: white;
+	text-align: center;
+	}
+</style>
+
+</head>
+<body>
+
+
+<div class="intro">
+<p>	
+	Javascript is an effective computer language to allow your data to be processed and presented onto your browser of choice. 
+	<br>
+	For example the below circles will change size based on the users input:
+	<br>
+</p> 
+</div>
+
+
+
+<div id="circlediv1">	<!-- button and dropdown box allow user input and initiate funtions in javascript to act on that input -->
+	Javascript can produce shapes that are relative in size and suitable to represent data. 
+	<br><br>
+	For example,<button onclick="drawCircle()">Click here</button>to generate circles based on the below data set. Amend the image size 
+	<select id="size_change">
+		<option value="50">50px</option>
+		<option value="75">75px</option>
+		<option value="100">100px</option>
+	</select>
+	<br><br>
+	A list of values become an array of circle diameters: <br>[10, 22, 25, 16, 19]
+			
+</div>
+
+<div id="circlediv2"></div>
+
+<div id="bardiv"> <!-- button and colorpicker allow user input and initiate funtions in javescript to act on that input -->
+	Let's look at how we can use this to build interactive bar charts.
+	<br><br>
+	First <button onclick="drawaxis()">click here</button> to generate an axis
+	<br><br>			
+	Now lets layer your data on top by clicking 
+	<button onclick="add_data()">Here</button>	
+	<br><br>			
+	Lets select a suitable chart colour:
+	<input id="colorPicker2" type="color">
+		<button onclick="cChange()">Update Colour</button>	
+	<br><br>
+	Pretty basic so far but ... <br>
+	Click to see how Javascript can animate this chart making it significantly more interactive: 
+	<button id="aButton" onclick="drawChart()">Animate!<img src="images/sheep.gif" width="20"></button>	
+
+</div>
+
+<div id="myDiv"></div>
+<div id="myDiv2"></div>
+
+<div id="comments">
+<p>	
+	Call us today (ph:00364802) to discuss how Qual-Stat can drive your business to the next level! 
+</p> 
+</div>
+
+<div class="footer">
+  <p>Web Applications Development Module, Eimear Butler G00364802 May 2019</p>
+</div>
+
+</body>
+
+<script> 
+//<!-- --- CIRCLES ----  -->
+//create function to generate circle & connect to button click in html
+function drawCircle() { 								
+var myArray = [10, 22, 25, 16, 19];
+//size of image can be determined by user, fed in as dropdown and value of dropdown pulled here
+var c_size = Number(document.getElementById("size_change").value)  
+d3.select("#circlediv2").selectAll("*").remove();  //delete information from previous use of this function
+var svgContainer = d3.select("#circlediv2").append("svg")  //create svg container that fits the needs of the image and container div
+	.attr("height", 200) 
+	.attr("width", 500);
+let circles = svgContainer.selectAll("circle")     //use myArray data to generate circles in svg container
+	.data(myArray);
+circles.enter() 									//append circles based on the each value being = to a radius value
+.append("circle")
+	.attr("cx", function(d, i){						//anonamous function created to locate the circles on the x-axis relative
+		return 50 +(i*c_size);						//to the previous circle i.e. creating images spaced across the screen at set intervals
+		})   										//Function returns 50px + index location*21 (21 being the width of each rectangle * 1px space)
+	.attr("cy", c_size)								//user input for spacing on y axis (and therefore size of image) is used here
+	.attr("r", function(d){return d;})				//circle radius is then relative to each value in the array
+	.attr("fill", "white");	
+;}
+//<!-- BAR CHARTS  -->
+function drawChart(){
+	d3.csv("file.csv").then(function(data){console.log(data); 	//import csv file using python server
+	//remove all data from previous uses of this function
+	d3.select("#myDiv2").selectAll("*").remove();
+	//convert input from .csv to numbers
+	data.forEach(function(d){d.complaints_received = Number(d.complaints_received);})
+	//create Y scale									//data is scaled relative to its container to ensure all images are shown
+	var yScale = d3.scaleLinear()
+		.domain([0, d3.max(data, function(d){return d.complaints_received;})])
+		.range([0,300]);     			//height of chart
+	//create X scale
+	var xScale = d3.scaleBand()							//data is scaled relative to its container to ensure all images are shown
+		.domain(data.map(function(d){return d.month;}))
+		.range([252,0]);				//width of chart
+	// create an svg container using d3 select append it into the right div
+	var svgContainer = d3.select("#myDiv2").append("svg")
+		.attr("width", 350)
+		.attr("height", 350);
+	// create a variable and associate it with all rectangles (generated from data) in the svg
+   var myRectangle = svgContainer.selectAll("rect")
+		.data(data);
+	// again d3 is used to append attributes for the rectangles 
+	myRectangle.enter()
+	   .append("rect")
+			//Start of transition
+			.attr("fill", "black")
+			.attr("x", function(d,i){   
+			   return 50 + (i*21);})
+												//anonamous function created to locate the rectangle on the x-axis relative 
+												//to the previous rectangle ie creating bar chart shape.
+												//Function returns 50px plus index location x 21 (21 being the width of each rectangle plus 1px space)
+												//meaning each rectangle is spaced across the screen at set intervals.
+			.attr("y", 300)
+			.attr("width", 40)
+				
+			.transition()   					//function to initiate transition
+			.duration(3000)  					//duration of transition (3 seconds)
+			
+			//after transition
+			.attr("x", function(d,i){
+			   return 50 + (i*21);
+			   })
+												//same as above rectangles do not move on x axis
+			.attr("y", function(d){
+					return 300-yScale(d.complaints_received);})
+												//rectangles increase up y axis using the complaints received data to the scaled height as per "yScale" 
+			.attr("width", 20)
+			.attr("height",function(d){
+					return yScale(d.complaints_received);})
+												//rectangles increase up y axis using the complaints received data to the scaled height as per "yScale" 
+			.attr("fill", function(d){
+				if (d.complaints_received <=200) {return "blue";}
+				else if (d.complaints_received <=300) {return "green";}
+				else if (d.complaints_received <=400) {return "orange";}
+				else {return "red";};}
+				); 								//fill changes from black to different colors based on value
+		//Add label text for Bar Chart
+		let mylabel = svgContainer.selectAll("text")
+			.data(data);   						//use data to create a text atribute that will be aligned with it 
+		mylabel.enter()
+		   .append("text")
+			   .attr("x", function(d,i){
+				   return 60 + (i*21);
+				   })
+												//use data to allocate x axis location for labels as per method used to calculate rectangle spacing  
+			   .attr("y", 300)
+				.transition()    				//define transition for labels 
+				.duration(2000)	
+				.delay(3000)					//assign delay so rectagles grow first
+				.ease(d3.easeLinear) 			//define type of transition style
+				
+				.attr("x", function(d,i){
+				   return 60 + (i*21);
+				   }) 							//no impact to X axis after transition
+				.attr("y", function(d){
+					return 300-yScale(d.complaints_received);
+					})
+												//as with the rectangles increase up y axis using the complaints received data 
+				.attr("text-anchor", "middle")	//text is in middle
+				.attr("font-family", "sans-serif")
+				.attr("font-size", "10px")
+				.attr("fill", "white")
+				.text(function(d){
+					return d.complaints_received; //text shown is the value of complaints received
+					})
+			   
+			   //second transition
+				.transition()
+				.duration(3000)
+				.delay(function(d,i){return i*400;})   //delay is relative to each element  Using an itteration through the list means each element has its own starting time.  
+				.ease(d3.easeBounceOut)  		   		//Style of this transition is changed again
+				
+			   .attr("x", function(d,i){
+				   return 60 + (i*21);
+				   }) 									//remains the same
+			   .attr("y", 320)							//ylocation reverts to below the a axis hence 320 rather than 300
+			   .attr("text-anchor", "middle")
+			   .attr("font-family", "sans-serif")
+			   .attr("font-size", "9px")
+			   .attr("fill", "yellow")
+			   .text(function(d){
+			   return d.month;							//the text changes from the value to the month name 
+			   });
+	 
+	 
+})
+;}		   
+//note much of this code is repeated and all comments will not be repeated in the same detail
+function drawaxis(){		
+	d3.csv("file.csv").then(function(data){console.log(data);
+	d3.select("#myDiv").selectAll("*").remove();
+	//convert to numbers
+	data.forEach(function(d){d.complaints_received = Number(d.complaints_received);})
+	//create Y scale
+	var yScale = d3.scaleLinear()
+		.domain([0, d3.max(data, function(d){return d.complaints_received;})])
+		.range([300,0]);
+	//create y axis
+	var yAxis = d3.axisLeft()
+		.scale(yScale);
+	//create X scale
+	var xScale = d3.scaleBand()
+		.domain(data.map(function(d){return d.month;}))
+		.range([252,0]);
+	//create X axis
+	var xAxis = d3.axisBottom()
+		.scale(xScale);
+	// create the svg container using d3 select append svg to div above
+		let svgContainer = d3.select("#myDiv").append("svg")
+		  .attr("width", 350)
+		  .attr("height", 350);
+		// create a variable and select all rectangles in svg containe as associate with data
+	   let myRectangle = svgContainer.selectAll("rect")
+		   .data(data);
+		//append y axis
+		svgContainer.append("g")					//creates axis and complaints received values and appends it to our svgcontainer 
+			.attr("transform", "translate(45,0)")    //position axis
+			.call(yAxis);
+		
+		//append x axis
+		svgContainer.append("g")					//similarly appends months to the xaxis but they need a little more formatting to rotate and set position
+			.attr("transform", "translate(50,300)")
+			.call(xAxis)
+			.selectAll("text")
+				.attr("transform","rotate(60)")
+				.attr("text-anchor", "start")
+				.attr("x", "9")
+				.attr("y", "3");
+})
+;}
+function add_data() {
+	d3.csv("file.csv").then(function(data){console.log(data);
+	d3.select("#myDiv").selectAll("*").remove();
+	//convert to numbers
+	data.forEach(function(d){d.complaints_received = Number(d.complaints_received);})
+	//create Y scale
+	var yScale = d3.scaleLinear()
+		.domain([0, d3.max(data, function(d){return d.complaints_received;})])
+		.range([300,0]);
+	//create y axis
+	var yAxis = d3.axisLeft()
+		.scale(yScale);
+	//create X scale
+	var xScale = d3.scaleBand()
+		.domain(data.map(function(d){return d.month;}))
+		.range([252,0]);
+	//create X axis
+	var xAxis = d3.axisBottom()
+		.scale(xScale);
+	// create the svg container using d3 select, append svg to div above
+		let svgContainer = d3.select("#myDiv").append("svg")
+		  .attr("width", 350)
+		  .attr("height", 350);
+		// create a variable and select all rectangles in svg containe as associate with data
+	   let myRectangle = svgContainer.selectAll("rect")
+		   .data(data);
+		//append y axis - transition into this?
+		svgContainer.append("g")
+			.attr("transform", "translate(45,0)")
+			.call(yAxis);
+		
+		//append x axis
+		svgContainer.append("g")
+			.attr("transform", "translate(50,300)")
+			.call(xAxis)
+			.selectAll("text")
+				.attr("transform","rotate(60)")
+				.attr("text-anchor", "start")
+				.attr("x", "9")
+				.attr("y", "3");
+		
+		// using d3 enter method to add rectangles
+		myRectangle.enter()
+		   .append("rect")
+				.attr("x", function(d,i){
+				   return 50 + (i*21);
+				   })
+				.attr("y", function(d){return yScale(d.complaints_received);})
+				.attr("width", 20)
+				.attr("height",function(d){
+				   return 300-yScale(d.complaints_received);
+				   })
+				.attr("fill", "black");
+})
+;}
+function cChange() {
+	d3.csv("file.csv").then(function(data){console.log(data);
+	d3.select("#myDiv").selectAll("*").remove();
+	//convert to numbers
+	data.forEach(function(d){d.complaints_received = Number(d.complaints_received);})
+	//create Y scale
+	var yScale = d3.scaleLinear()
+		.domain([0, d3.max(data, function(d){return d.complaints_received;})])
+		.range([300,0]);
+	//create y axis
+	var yAxis = d3.axisLeft()
+		.scale(yScale);
+	//create X scale
+	var xScale = d3.scaleBand()
+		.domain(data.map(function(d){return d.month;}))
+		.range([252,0]);
+	//create X axis
+	var xAxis = d3.axisBottom()
+		.scale(xScale);
+	// create the svg container using d3 select, append svg to div above
+		let svgContainer = d3.select("#myDiv").append("svg")
+		  .attr("width", 350)
+		  .attr("height", 350);
+		// create a variable and select all rectangles in svg containe as associate with data
+	   let myRectangle = svgContainer.selectAll("rect")
+		   .data(data);
+		//append y axis - transition into this?
+		svgContainer.append("g")
+			.attr("transform", "translate(45,0)")
+			.call(yAxis);
+		
+		//append x axis
+		svgContainer.append("g")
+			.attr("transform", "translate(50,300)")
+			.call(xAxis)
+			.selectAll("text")
+				.attr("transform","rotate(60)")
+				.attr("text-anchor", "start")
+				.attr("x", "9")
+				.attr("y", "3");
+		
+		// using d3 enter method to add rectangles
+		myRectangle.enter()
+		   .append("rect")
+				.attr("x", function(d,i){
+				   return 50 + (i*21);
+				   })
+				.attr("y", function(d){return yScale(d.complaints_received);})
+				.attr("width", 20)
+				.attr("height",function(d){
+				   return 300-yScale(d.complaints_received);
+				   })
+				.attr("fill", document.getElementById("colorPicker2").value); //user input is included in this function to allow user to change color using dropdown in body 
+})
+;}
+</script>
+
+
+
+</html>
